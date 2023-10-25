@@ -30,7 +30,7 @@ public class ClienteController {
     return ResponseEntity.notFound().build();
   }
 
-  @PutMapping
+  @PostMapping
   public ResponseEntity<Cliente> insertNew(@RequestBody Cliente novo) {
     try {
       Cliente result = clienteService.cadastrarNovoCliente(novo);
@@ -41,6 +41,15 @@ public class ClienteController {
       System.out.println("LOG - Erro ao cadastrar cliente - " + e.getMessage());
     }
     return ResponseEntity.badRequest().build();
+  }
+
+  @GetMapping("/busca")
+  public ResponseEntity<Cliente> getByTelefone(@RequestParam(name = "telefone") String telefone) {
+    Cliente result = clienteService.recuperarClientePeloTelefone(telefone);
+    if (result != null) {
+      return ResponseEntity.ok(result);
+    }
+    return ResponseEntity.notFound().build();
   }
 
   @PutMapping("/{id}")
@@ -59,12 +68,5 @@ public class ClienteController {
     return ResponseEntity.badRequest().build();
   }
 
-  @GetMapping("/busca")
-  public ResponseEntity<Cliente> getByTelefone(@RequestParam(name = "telefone") String telefone) {
-    Cliente result = clienteService.recuperarClientePeloTelefone(telefone);
-    if (result != null) {
-      return ResponseEntity.ok(result);
-    }
-    return ResponseEntity.notFound().build();
-  }
+
 }
