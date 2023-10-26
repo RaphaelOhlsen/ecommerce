@@ -37,17 +37,14 @@ public class CategoriaController {
 
   @PutMapping("/{id}")
   public ResponseEntity<Categoria> update(@PathVariable Integer id, @RequestBody Categoria categoria) {
-    try {
-      Categoria result = categoriaService.recuperarCategoriaPeloId(id);
+    Categoria result = categoriaService.recuperarCategoriaPeloId(id);
 
-      if (result != null) {
-        result = categoriaService.alterarCategoria(result);
-        return ResponseEntity.ok(result);
-      }
-    } catch (Exception e) {
-      System.out.println("LOG - Erro ao atualizar categoria - " + e.getMessage());
+    if (result != null) {
+      categoria.setId(id);
+      result = categoriaService.alterarCategoria(categoria);
+      return ResponseEntity.ok(result);
     }
-    return ResponseEntity.notFound().build();
+    return ResponseEntity.badRequest().build();
   }
 
   @DeleteMapping("/{id}")
