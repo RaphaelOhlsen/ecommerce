@@ -4,6 +4,7 @@ import com.truedev.ecommerce.model.Categoria;
 import com.truedev.ecommerce.model.Produto;
 import com.truedev.ecommerce.service.produto.IProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +18,8 @@ public class ProdutoController {
   private IProdutoService produtoService;
 
   @GetMapping
-  public ResponseEntity<List<Produto>> getAll() {
-    List<Produto> lista = produtoService.recuperarTodos();
+  public ResponseEntity<Page<Produto>> getAll(@RequestParam(name="page", defaultValue = "1") int numeroPagina) {
+    Page<Produto> lista = produtoService.recuperarTodos(numeroPagina);
       return ResponseEntity.ok(lista);
   }
 
