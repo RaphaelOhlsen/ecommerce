@@ -1,5 +1,6 @@
 package com.truedev.ecommerce.controller;
 
+import com.truedev.ecommerce.model.VarianteProduto;
 import com.truedev.ecommerce.service.categoria.ICategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -70,4 +71,5 @@ public class CategoriaController {
     }
     return ResponseEntity.notFound().build();
   }
+
 }

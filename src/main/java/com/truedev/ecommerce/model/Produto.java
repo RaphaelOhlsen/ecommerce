@@ -1,5 +1,7 @@
 package com.truedev.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -10,7 +12,7 @@ public class Produto {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id_produto")
-  private int id;
+  private Integer id;
 
   @Column(name = "nome_produto", length = 45, nullable = false)
   private String nome;
@@ -35,11 +37,15 @@ public class Produto {
   )
   private List<Categoria> categorias;
 
+  @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+  @JsonIgnoreProperties("produto")
+  private List<VarianteProduto> variantes;
+
   public int getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -90,4 +96,13 @@ public class Produto {
   public void setCategorias(List<Categoria> categorias) {
     this.categorias = categorias;
   }
+
+  public List<VarianteProduto> getVariantes() {
+    return variantes;
+  }
+
+  public void setVariantes(List<VarianteProduto> variantes) {
+    this.variantes = variantes;
+  }
+
 }
