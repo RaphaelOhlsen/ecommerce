@@ -3,6 +3,7 @@ package com.truedev.ecommerce.service.usuario;
 import com.truedev.ecommerce.dao.UsuarioDAO;
 import com.truedev.ecommerce.model.Usuario;
 import com.truedev.ecommerce.security.ECToken;
+import com.truedev.ecommerce.security.ECTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -38,10 +39,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
       if (usuario != null) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         if (encoder.matches(senha, usuario.getSenha())) {
-
-          return token;
+          return ECTokenUtil.generateToken(usuario);
         }
       }
+      return null;
     }
 
 }

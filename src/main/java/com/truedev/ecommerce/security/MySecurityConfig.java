@@ -17,6 +17,7 @@ public class MySecurityConfig {
             .authorizeHttpRequests()
             .requestMatchers(HttpMethod.GET, "/produtos").permitAll()
             .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+            .requestMatchers(HttpMethod.POST, "/login").permitAll()
             .anyRequest().authenticated().and().cors();
 
     http.addFilterBefore(new MyFilter(), UsernamePasswordAuthenticationFilter.class);

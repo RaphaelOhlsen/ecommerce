@@ -4,7 +4,12 @@ public class ECToken {
   private String token;
 
   public ECToken(String token) {
+    super();
     this.token = token;
+  }
+
+  public ECToken() {
+    super();
   }
 
   public String getToken() {
